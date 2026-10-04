@@ -351,6 +351,14 @@ footer a{color:var(--muted)}
           <div class="ans"><p>That's normal for a new game from an independent developer. Press <b>More info</b>, then <b>Run anyway</b>.</p></div>
         </details>
         <details>
+          <summary>Game says "Terrain3D library is missing"</summary>
+          <div class="ans">
+            <p>This means the game was started without its <b>libterrain.windows.release.x86_64.dll</b> file. It is in the download, but it only comes out when you unzip.</p>
+            <p>Fix: delete the half-working copy, right-click the zip, press <b>Extract All…</b>, open the extracted <b>3D Survival Game</b> folder and start <b>3DSurvivalGame</b> from there. Keep the .exe and the .dll in the same folder. The "open download page" button in that message only brings you back to the download, so you don't need it.</p>
+            <p>Still the same? Your antivirus may have removed the .dll. Check that it is in the folder, and allow the game folder in Windows Security.</p>
+          </div>
+        </details>
+        <details>
           <summary>Something isn't working</summary>
           <div class="ans"><p>In the game open <b>Settings</b>, then <b>Check &amp; repair game files</b>. It fixes only the broken files. For a bug report, use <b>Copy hardware info</b> in Settings and send it with your message.</p></div>
         </details>
@@ -378,7 +386,8 @@ const ICONS = {
 const STEPS = {
   windows: [
     ["Download", 'Press the gold button. The game is about <b>{size}</b>, so wait until it\'s done.'],
-    ["Unzip", 'Open your <b>Downloads</b> folder. Right-click the game file, press <span class="key">Extract All…</span>, then <span class="key">Extract</span>.'],
+    ["Unzip first", 'Open your <b>Downloads</b> folder. Right-click the game file, press <span class="key">Extract All…</span>, then <span class="key">Extract</span>.',
+     '<b>Do not start the game from inside the zip.</b> It then runs without its Terrain3D file and shows "game files missing".'],
     ["Play", 'Open the <b>3D Survival Game</b> folder and double-click <b>3DSurvivalGame</b>.',
      'Blue box "Windows protected your PC"? Press <span class="key">More info</span>, then <span class="key">Run anyway</span>.']
   ],
