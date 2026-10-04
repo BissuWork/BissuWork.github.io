@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3D Survival Game – Download</title>
+<meta name="description" content="Download 3D Survival Game for Windows, Android and Mac. Gather. Build. Survive the night.">
+<meta property="og:title" content="3D Survival Game">
+<meta property="og:description" content="Gather. Build. Survive the night. Free download for Windows, Android and Mac.">
+<meta property="og:image" content="img/share.jpg">
+<meta name="theme-color" content="#1b140e">
+<link rel="icon" href="img/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* "Frontier" look from the game: dark leather, brass trim, gold buttons */
+:root{
+  --bg:#17110c; --leather:#2a1f16; --leather2:#33261b; --well:#120d09;
+  --brass:#9c7a42; --brass-hi:#c9a35e; --gold:#f0c36a; --gold-d:#d49a3c;
+  --text:#f1e6d0; --muted:#b6aa93; --dim:#8a7f6c; --green:#7ed957; --red:#e05545; --blue:#5cc0ff;
+  --radius:14px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.55 Nunito,system-ui,sans-serif;
+  background-image:radial-gradient(circle at 20% 0%,rgba(156,122,66,.13),transparent 45%),
+    radial-gradient(circle at 90% 30%,rgba(156,122,66,.08),transparent 40%);}
+a{color:var(--gold)}
+h1,h2,h3,.btn,.badge,.tab{font-family:Oswald,Impact,sans-serif;letter-spacing:.02em}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+
+/* hero */
+.hero{position:relative;min-height:400px;display:flex;align-items:flex-end;overflow:hidden;
+  background:#0d0a07 url(img/bg.jpg) center 60%/cover no-repeat;border-bottom:3px solid var(--brass)}
+.hero .trio{position:absolute;z-index:1;right:max(16px,calc(50% - 600px));bottom:-6px;height:370px;width:auto;
+  filter:drop-shadow(0 10px 18px rgba(0,0,0,.55));pointer-events:none}
+.hero::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(180deg,rgba(13,10,7,0) 55%,rgba(23,17,12,.9) 100%)}
+.hero .wrap{position:relative;z-index:3;padding-top:120px;padding-bottom:22px;width:100%}
+.hero h1{margin:0;font-size:clamp(38px,8vw,70px);line-height:1;text-transform:uppercase;
+  text-shadow:0 3px 0 #000,0 0 24px rgba(0,0,0,.6)}
+.hero p{margin:8px 0 0;font-size:clamp(17px,3vw,21px);color:var(--gold);font-weight:700;text-shadow:0 2px 6px #000}
+.chip{display:inline-block;margin-top:12px;padding:5px 12px;border-radius:999px;background:rgba(18,13,9,.85);
+  border:1px solid var(--brass);color:var(--muted);font-size:14px;font-weight:700}
+.chip b{color:var(--text)}
+
+/* panels */
+.panel{position:relative;background:linear-gradient(180deg,var(--leather2),var(--leather));
+  border:2px solid var(--brass);border-radius:var(--radius);padding:22px;margin:26px 0;
+  box-shadow:0 10px 30px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.06)}
+.panel::before,.panel::after{content:"";position:absolute;top:9px;width:8px;height:8px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,#f3d79a,#8a6a33 70%);box-shadow:0 1px 1px #000}
+.panel::before{left:9px}.panel::after{right:9px}
+.panel h2{margin:0 0 4px;font-size:30px;text-transform:uppercase;color:var(--gold)}
+.lead{margin:0 0 18px;color:var(--muted)}
+
+/* the big button */
+.big{display:flex;align-items:center;gap:16px;width:100%;max-width:560px;padding:18px 22px;border-radius:16px;
+  background:linear-gradient(180deg,#ffd987,var(--gold) 45%,var(--gold-d));color:#2a1a08;text-decoration:none;
+  border:2px solid #fff1c6;box-shadow:0 6px 0 #8a5f22,0 12px 26px rgba(0,0,0,.5);transition:transform .08s}
+.big:hover{transform:translateY(-2px)}
+.big:active{transform:translateY(3px);box-shadow:0 2px 0 #8a5f22,0 6px 14px rgba(0,0,0,.5)}
+.big svg{flex:0 0 auto;width:52px;height:52px}
+.big .t{font:700 clamp(22px,5vw,30px)/1.05 Oswald,sans-serif;text-transform:uppercase}
+.big .s{font-weight:800;font-size:15px;opacity:.8}
+.big.off{filter:grayscale(.8);opacity:.6;pointer-events:none}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 6px;align-items:center}
+.tabs span{color:var(--dim);font-weight:700;margin-right:4px}
+.tab{cursor:pointer;padding:8px 16px;border-radius:10px;border:2px solid var(--brass);background:var(--well);
+  color:var(--muted);font-size:17px;text-transform:uppercase}
+.tab[aria-pressed="true"]{background:var(--brass);color:#1b130a;border-color:var(--brass-hi)}
+.ios{display:none;margin-top:14px;padding:12px 14px;border-radius:10px;background:var(--well);border:1px dashed var(--brass);color:var(--muted)}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px;counter-reset:s}
+.step{background:var(--well);border:1px solid #4a3a28;border-radius:12px;padding:16px 16px 14px;position:relative}
+.step .n{position:absolute;top:-14px;left:14px;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;
+  background:var(--gold);color:#2a1a08;font:700 19px Oswald,sans-serif;border:2px solid #fff1c6}
+.step h3{margin:10px 0 6px;font-size:20px;color:var(--text)}
+.step p{margin:0;color:var(--muted);font-size:15.5px}
+.step .pic{margin-top:10px;padding:8px 10px;border-radius:8px;background:#20170f;border:1px solid #3d2f20;font-size:14px;color:var(--text)}
+.key{display:inline-block;padding:1px 7px;border-radius:5px;background:#3a2c1e;border:1px solid var(--brass);font-weight:800;font-size:13.5px;white-space:nowrap}
+.note{margin-top:14px;color:var(--dim);font-size:14.5px}
+
+/* already have it */
+.have{display:grid;grid-template-columns:1.2fr 1fr;gap:22px;align-items:center}
+.have p{margin:0 0 10px}
+.big-yes{font-size:20px;font-weight:800}
+.mock{background:linear-gradient(180deg,#2d2218,#221911);border:2px solid var(--brass);border-radius:12px;padding:16px;text-align:center;
+  box-shadow:0 8px 20px rgba(0,0,0,.5)}
+.mock .h{font:700 21px Oswald,sans-serif;color:var(--gold);text-transform:uppercase}
+.mock .b{color:var(--muted);font-size:14px;margin:6px 0 12px}
+.mock .row{display:flex;gap:10px;justify-content:center}
+.mock .ok,.mock .no{font:600 16px Oswald,sans-serif;padding:8px 16px;border-radius:8px;text-transform:uppercase}
+.mock .ok{background:var(--gold);color:#2a1a08;outline:3px solid var(--green);outline-offset:3px;animation:pulse 1.6s infinite}
+.mock .no{background:#3a2c1e;color:var(--muted);border:1px solid var(--brass)}
+@keyframes pulse{50%{outline-color:transparent}}
+
+/* update log */
+.log{display:flex;flex-direction:column;gap:14px}
+.rel{background:var(--well);border:1px solid #4a3a28;border-left:5px solid var(--green);border-radius:12px;padding:14px 16px}
+.rel.full{border-left-color:var(--gold)}
+.rel .top{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.rel .v{font:700 24px Oswald,sans-serif}
+.badge{font-size:13px;padding:3px 9px;border-radius:999px;text-transform:uppercase;font-weight:600}
+.badge.p{background:rgba(126,217,87,.15);color:var(--green);border:1px solid rgba(126,217,87,.5)}
+.badge.f{background:rgba(240,195,106,.15);color:var(--gold);border:1px solid rgba(240,195,106,.55)}
+.badge.new{background:var(--red);color:#fff}
+.rel .d{color:var(--dim);font-size:14px;margin-left:auto}
+.rel ul{margin:10px 0 0;padding-left:20px;color:var(--muted)}
+.rel li{margin:3px 0}
+.rel .how{margin-top:10px;font-size:14px;color:var(--dim)}
+.rel .dl{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.rel .dl a{font-size:14px;font-weight:800;text-decoration:none;padding:6px 12px;border-radius:8px;border:1px solid var(--brass);background:#20170f}
+.loading{color:var(--dim)}
+
+/* features */
+.feat{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center}
+.feat img{width:100%;border-radius:12px;border:2px solid var(--brass);display:block}
+.feat ul{margin:0;padding-left:20px;color:var(--muted)}
+.feat li{margin:6px 0}
+footer{padding:26px 0 40px;color:var(--dim);font-size:14px;text-align:center}
+
+@media (max-width:760px){
+  body{font-size:16px}
+  .panel{padding:18px 14px}
+  .steps,.have,.feat{grid-template-columns:1fr}
+  .steps{gap:22px}
+  .hero{min-height:440px;align-items:flex-end}
+  .hero .trio{height:270px;right:50%;transform:translateX(50%);top:18px;bottom:auto}
+  .hero .wrap{padding-top:290px}
+  .steps{margin-top:28px}
+  .rel .d{margin-left:0;width:100%}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <img class="trio" src="img/survivors.png" alt="The Woodsman, the Explorer and the Casual survivor">
+  <div class="wrap">
+    <h1>3D Survival Game</h1>
+    <p>Gather. Build. Survive the night.</p>
+    <div class="chip" id="newest">Newest version: <b>…</b></div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- 1. GET THE GAME -->
+  <section class="panel" id="get">
+    <h2>Get the game</h2>
+    <p class="lead" id="who">Free. Pick your device and press the big button.</p>
+    <a class="big off" id="bigBtn" href="#">
+      <span id="bigIcon"></span>
+      <span><div class="t" id="bigText">Download</div><div class="s" id="bigSub">Loading…</div></span>
+    </a>
+    <div class="ios" id="iosNote">📱 Sorry – the game isn't on <b>iPhone / iPad</b> yet. You can play it on a Windows PC, a Mac or an Android phone.</div>
+    <div class="tabs" role="group" aria-label="Choose your device">
+      <span>Other device?</span>
+      <button class="tab" data-p="windows">Windows PC</button>
+      <button class="tab" data-p="android">Android phone</button>
+      <button class="tab" data-p="mac">Mac</button>
+    </div>
+    <div class="steps" id="steps"></div>
+    <p class="note" id="stepNote"></p>
+  </section>
+
+  <!-- 2. ALREADY HAVE IT -->
+  <section class="panel" id="have">
+    <h2>Already have the game?</h2>
+    <div class="have">
+      <div>
+        <p class="big-yes">You don't need to download it again! 🎉</p>
+        <p>Just <b>open the game</b>. When a new update is out, the game shows a box like this one.
+           Press <b>Update now</b> – the game updates itself and starts again.</p>
+        <p style="color:var(--muted)">Only if the game says <b>"New version – open download page"</b>, come back here and download
+           the game once more. Install it over the old one – <b>your worlds are kept</b>.</p>
+      </div>
+      <div class="mock" aria-hidden="true">
+        <div class="h" id="mockTitle">Update is ready</div>
+        <div class="b">The game found a new update.</div>
+        <div class="row"><span class="ok">Update now</span><span class="no">Later</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. WHAT'S IN IT -->
+  <section class="panel">
+    <h2>What's in the game</h2>
+    <div class="feat">
+      <img src="img/creator.jpg" alt="Character creator in the game" loading="lazy">
+      <ul>
+        <li>Explore a big world: forests, snow, sand, lava and the sea.</li>
+        <li>Chop trees, mine rocks, craft tools, build a house.</li>
+        <li>Cook food, grow crops, find chests.</li>
+        <li>Zombies come out at night – stay near your torches!</li>
+        <li>Make your own character: face, hair, clothes and more.</li>
+        <li>Works on PC, Mac and Android phones.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 4. UPDATE LOG -->
+  <section class="panel" id="updates">
+    <h2>Update log</h2>
+    <p class="lead">Every update, newest first. <span class="badge p">Small update</span> = comes inside the game by itself.
+      <span class="badge f">Full game</span> = download once from here.</p>
+    <div class="log" id="log"><p class="loading">Loading updates…</p></div>
+  </section>
+</main>
+
+<footer>
+  Something not working? In the game open <b>Settings → Check &amp; repair game files</b>.<br>
+  Made by Bishwas with Godot · <a href="https://github.com/BissuWork/survival-game-updates/releases">all files on GitHub</a>
+</footer>
+
+<script>
+const OWNER = "BissuWork", REPO = "survival-game-updates";
+const NAMES = {windows: "Windows PC", android: "Android phone", mac: "Mac"};
+const ICONS = {
+  windows: '<svg viewBox="0 0 48 48"><path fill="#2a1a08" d="M4 9l16-2.2v15.5H4zm18-2.5L44 3.5v18.8H22zM4 25.7h16v15.5L4 39zm18 0h22v18.8l-22-3z"/></svg>',
+  android: '<svg viewBox="0 0 48 48"><path fill="#2a1a08" d="M12 18h24v17a3 3 0 0 1-3 3h-2v6a3 3 0 0 1-6 0v-6h-2v6a3 3 0 0 1-6 0v-6h-2a3 3 0 0 1-3-3zm-6 1a3 3 0 0 1 6 0v12a3 3 0 0 1-6 0zm30 0a3 3 0 0 1 6 0v12a3 3 0 0 1-6 0zM12.5 16a11.5 10 0 0 1 23 0zM16.5 4.5l2.6 4.3M31.5 4.5l-2.6 4.3" stroke="#2a1a08" stroke-width="2"/><circle cx="19" cy="11.5" r="1.6" fill="#f0c36a"/><circle cx="29" cy="11.5" r="1.6" fill="#f0c36a"/></svg>',
+  mac: '<svg viewBox="0 0 48 48"><path fill="#2a1a08" d="M32.6 25.4c0-5 4.1-7.4 4.3-7.5-2.3-3.4-6-3.9-7.3-3.9-3.1-.3-6 1.8-7.6 1.8s-4-1.8-6.6-1.7c-3.4 0-6.5 2-8.3 5-3.5 6.1-.9 15.2 2.5 20.2 1.7 2.4 3.7 5.2 6.3 5.1 2.5-.1 3.5-1.6 6.6-1.6s3.9 1.6 6.6 1.6c2.7-.1 4.4-2.5 6.1-5 1.9-2.8 2.7-5.5 2.7-5.6-.1 0-5.3-2-5.3-8.4zM27.6 10.6c1.4-1.7 2.3-4 2.1-6.4-2 .1-4.5 1.4-5.9 3.1-1.3 1.5-2.4 3.9-2.1 6.2 2.2.2 4.5-1.1 5.9-2.9z"/></svg>'
+};
+const STEPS = {
+  windows: [
+    ["Download", 'Press the big gold button. The game is about <b>{size}</b>, so wait until it\'s done.'],
+    ["Unzip", 'Open your <b>Downloads</b> folder. Right-click the game file and press <span class="key">Extract All…</span> then <span class="key">Extract</span>.'],
+    ["Play!", 'Open the <b>3D Survival Game</b> folder and double-click <b>3DSurvivalGame</b>.',
+     'Blue box "Windows protected your PC"? Press <span class="key">More info</span> then <span class="key">Run anyway</span>.']
+  ],
+  android: [
+    ["Download", 'Press the big gold button. The game is about <b>{size}</b> – use <b>Wi-Fi</b>.'],
+    ["Open the file", 'When it\'s done, tap the downloaded file (it ends with <b>.apk</b>).',
+     'Phone says "not allowed"? Tap <span class="key">Settings</span>, turn on <span class="key">Allow from this source</span>, go back.'],
+    ["Install & play!", 'Tap <span class="key">Install</span>, then <span class="key">Open</span>. Have fun!',
+     'Already have an older version? Just install over it – your worlds stay.']
+  ],
+  mac: [
+    ["Download", 'Press the big gold button and wait until the download (about <b>{size}</b>) is done.'],
+    ["Unzip & move", 'Double-click the zip. Drag <b>3D survival Game</b> into your <b>Applications</b> folder.'],
+    ["First start", 'Right-click the game, press <span class="key">Open</span>, then <span class="key">Open</span> again.',
+     'Still blocked? Right-click <b>Fix and open (Mac).command</b> (it was in the zip) → <span class="key">Open</span>.']
+  ]
+};
+
+let platform = detect(), fulls = {}, releases = [];
+
+function detect(){
+  const ua = navigator.userAgent || "";
+  if (/android/i.test(ua)) return "android";
+  if (/iphone|ipad|ipod/i.test(ua) || (/macintosh/i.test(ua) && navigator.maxTouchPoints > 1)) return "ios";
+  if (/mac os x|macintosh/i.test(ua)) return "mac";
+  return "windows";
+}
+function mb(b){ return b ? Math.round(b / 1048576) + " MB" : ""; }
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function niceDate(s){
+  const d = new Date(s); if (isNaN(d)) return s || "";
+  return d.toLocaleDateString(undefined, {day: "numeric", month: "long", year: "numeric"});
+}
+function ver(tag){ return String(tag).replace(/^v/i, ""); }
+
+// which platform a release file is for
+function assetPlatform(name){
+  const n = name.toLowerCase();
+  if (n.endsWith(".apk")) return "android";
+  if (/mac/.test(n) && (n.endsWith(".zip") || n.endsWith(".dmg"))) return "mac";
+  if (/win/.test(n) && (n.endsWith(".zip") || n.endsWith(".exe"))) return "windows";
+  return null;
+}
+
+function render(){
+  const p = platform === "ios" ? "windows" : platform;
+  document.getElementById("iosNote").style.display = platform === "ios" ? "block" : "none";
+  document.querySelectorAll(".tab").forEach(t => t.setAttribute("aria-pressed", t.dataset.p === p && platform !== "ios" ? "true" : "false"));
+  const f = fulls[p];
+  const btn = document.getElementById("bigBtn");
+  document.getElementById("bigIcon").innerHTML = ICONS[p];
+  document.getElementById("bigText").textContent = "Download for " + (p === "windows" ? "Windows" : p === "android" ? "Android" : "Mac");
+  if (f){
+    btn.href = f.url; btn.classList.remove("off");
+    document.getElementById("bigSub").textContent = "Version " + f.version + " · " + mb(f.size) + " · free";
+  } else if (Object.keys(fulls).length || releases.length){
+    btn.href = "#"; btn.classList.add("off");
+    document.getElementById("bigSub").textContent = "Not ready for this device yet";
+  }
+  document.getElementById("who").innerHTML = platform === "ios"
+    ? "Pick the device you want to play on."
+    : 'Looks like you\'re on a <b>' + NAMES[p] + '</b>. Press the big button!';
+  document.getElementById("steps").innerHTML = STEPS[p].map((s, i) =>
+    '<div class="step"><div class="n">' + (i + 1) + '</div><h3>' + s[0] + '</h3><p>' +
+    s[1].replace("{size}", f ? mb(f.size) : "250 MB") + '</p>' + (s[2] ? '<div class="pic">' + s[2] + '</div>' : '') + '</div>').join("");
+  document.getElementById("stepNote").innerHTML = "You only do this once. After that the game updates itself – see below.";
+}
+
+function renderLog(list){
+  const log = document.getElementById("log");
+  if (!list.length){ log.innerHTML = '<p class="loading">No updates yet.</p>'; return; }
+  log.innerHTML = list.map((r, i) => {
+    const full = Object.keys(r.full).length > 0;
+    const notes = (r.notes || "").split(/(?<=[.!?])\s+(?=[A-Z0-9'"(])/).map(s => s.trim()).filter(Boolean);
+    return '<article class="rel' + (full ? ' full' : '') + '">' +
+      '<div class="top"><span class="v">' + esc(ver(r.tag)) + '</span>' +
+      (i === 0 ? '<span class="badge new">Newest</span>' : '') +
+      '<span class="badge ' + (full ? 'f">Full game' : 'p">Small update') + '</span>' +
+      '<span class="d">' + esc(niceDate(r.date)) + '</span></div>' +
+      (notes.length ? '<ul>' + notes.map(n => '<li>' + esc(n) + '</li>').join("") + '</ul>' : '') +
+      (full
+        ? '<div class="dl">' + ["windows", "android", "mac"].filter(k => r.full[k]).map(k =>
+            '<a href="' + esc(r.full[k].url) + '">⬇ ' + NAMES[k] + ' · ' + mb(r.full[k].size) + '</a>').join("") + '</div>'
+        : '<div class="how">Comes by itself: open the game and press <b>Update now</b>.</div>') +
+      '</article>';
+  }).join("");
+}
+
+async function load(){
+  let hist = [];
+  try { hist = (await (await fetch("history.json", {cache: "no-cache"})).json()).releases || []; } catch(e){}
+  const byTag = Object.fromEntries(hist.map(h => [h.tag, h]));
+  let list = [];
+  try {
+    const ctl = new AbortController(); setTimeout(() => ctl.abort(), 9000);
+    const res = await fetch("https://api.github.com/repos/" + OWNER + "/" + REPO + "/releases?per_page=100", {signal: ctl.signal});
+    if (!res.ok) throw new Error("http " + res.status);
+    const data = await res.json();
+    list = data.filter(r => !r.draft).map(r => {
+      const full = {};
+      for (const a of r.assets || []){
+        const p = assetPlatform(a.name);
+        if (p && (!full[p] || a.name.toLowerCase().endsWith(".exe"))) full[p] = {url: a.browser_download_url, size: a.size};
+      }
+      const h = byTag[r.tag_name] || {};
+      return {tag: r.tag_name, date: r.published_at || h.date, notes: (r.body || "").trim() || h.notes || "", full};
+    });
+  } catch(e){
+    // GitHub not reachable (or too many visits) - use the copy on this site
+    list = hist.map(h => ({tag: h.tag, date: h.date, notes: h.notes, full: h.full || {}}));
+  }
+  list.sort((a, b) => new Date(b.date) - new Date(a.date));
+  releases = list;
+  // newest full game per device
+  for (const r of list) for (const k of Object.keys(r.full))
+    if (!fulls[k]) fulls[k] = Object.assign({version: ver(r.tag)}, r.full[k]);
+  if (list[0]){
+    document.getElementById("newest").innerHTML = "Newest version: <b>" + esc(ver(list[0].tag)) + "</b> · " + esc(niceDate(list[0].date));
+    document.getElementById("mockTitle").textContent = "Update " + ver(list[0].tag) + " is ready";
+  }
+  render(); renderLog(list);
+}
+
+document.querySelectorAll(".tab").forEach(t => t.addEventListener("click", () => { platform = t.dataset.p; render(); }));
+render();
+load();
+</script>
+</body>
+</html>

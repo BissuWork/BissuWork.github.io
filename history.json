@@ -1,0 +1,20 @@
+{
+  "_about": "Backup for the website: notes for old releases (their GitHub release text is empty) and the full-game files, used if GitHub can't be reached. New releases made with publish_update.py carry their notes on GitHub and show up on the site by themselves - you don't have to edit this file.",
+  "releases": [
+    {
+      "tag": "v0.8.1",
+      "date": "2026-10-03",
+      "notes": "Much smoother nights on Hard and Difficult (up to almost 2x the FPS). New Graphics preset (Low / Medium / High) in Settings; built-in graphics cards start on Low automatically. New 'Copy hardware info' button in Settings for bug reports."
+    },
+    {
+      "tag": "v0.8",
+      "date": "2026-10-02",
+      "notes": "New look for the whole game (Frontier UI). Fixed the world looking all brown / mud on some phones. New: the game checks its own files and repairs only broken ones (Settings > Check & repair game files). Mac: easier first start (Fix and open helper).",
+      "full": {
+        "windows": {"url": "https://github.com/BissuWork/survival-game-updates/releases/download/v0.8/3D.Survival.Game.beta.0.8.Windows.zip", "size": 236745008},
+        "android": {"url": "https://github.com/BissuWork/survival-game-updates/releases/download/v0.8/3D.Survival.Game.beta.0.8.Android.apk", "size": 285828782},
+        "mac": {"url": "https://github.com/BissuWork/survival-game-updates/releases/download/v0.8/3D.Survival.Game.beta.0.8.Mac.zip", "size": 273587850}
+      }
+    }
+  ]
+}
